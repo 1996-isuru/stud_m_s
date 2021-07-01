@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
+//create the schema
 const studentSchema = new Schema({
 
     name : {
@@ -21,7 +22,8 @@ const studentSchema = new Schema({
 })
 
 //when we send data in to databse we give two parameters
-//first one is the document name of we stored data in mongodb database
+//first one is the document name of we stored data in mongo db database
+//this doing by the fuction called model in mongoose
 const Student = mongoose.model("Students",studentSchema);
 
 module.exports = Student;
