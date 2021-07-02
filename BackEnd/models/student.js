@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 
 //create the schema
 const studentSchema = new Schema({
-
     name : {
         type : String,
         //backend validation 
@@ -24,6 +23,6 @@ const studentSchema = new Schema({
 //when we send data in to databse we give two parameters
 //first one is the document name of we stored data in mongo db database
 //this doing by the fuction called model in mongoose
-const Student = mongoose.model("Students",studentSchema);
+const Student = mongoose.model("Student",studentSchema);
 
 module.exports = Student;

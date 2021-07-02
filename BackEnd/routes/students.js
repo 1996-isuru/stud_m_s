@@ -1,10 +1,10 @@
 const router = require("express").Router();
-let Student = require("../models/student");
+let Student = require("../models/Student");
 
 //this is the about student adding router
 //methana me "/add" nisa http://localhost:8070/student/add kiyn ekat ynw
 //this is the formal mechanism for the get value in req url
-router.route("/add").post((req, res) => {
+router.route("/add").post((req, res) => {  
   const name = req.body.name;
   const age = Number(req.body.age);
   const gender = req.body.gender;
@@ -17,7 +17,6 @@ router.route("/add").post((req, res) => {
   //me save eken wenne me hdgtt newStudent kyn ibject ek databse ekat
   //psass krgnnw.
   //model eka haraha databse eketa pass krnw document ekk vidiht
-  newStudent.save();
 
   //when insert success
   newStudent
@@ -26,7 +25,8 @@ router.route("/add").post((req, res) => {
       res.json("Student Added");
     })
     .catch((err) => {
-      console.log(err);
+      console.log(err.message);
+      res.status(500).send({ status: "Error with update data." });
     });
 });
 //post is using when data insert and put is using when update
