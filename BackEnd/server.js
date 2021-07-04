@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const dotenv = require("dotenv");
+// const dotenv = require("dotenv");
 const app = express();
 require("dotenv").config();  
 
@@ -29,12 +29,12 @@ connection.once("open", () => {
     console.log("Mongodb connetction succesfull");
 })
 
-const studentRouter = require("./routes/students.js");
+const studentRouter = require("./routes/students");
 // http: //localhost:8070/student
 //when run this command call student when cll the studentRouter by app.use
-app.use("/students",studentRouter);
+app.use("/student",studentRouter);
 
-//then we run this port 
+//then we run this port     
 app.listen(PORT, () => {
     console.log(`Server is up and running on port number: ${PORT}`)
 })

@@ -65,11 +65,11 @@ router.route("/update/:id").put(async (req, res) => {
   const update = await Student.findByIdAndUpdate(userId, updateStudent)
     .then(() => {
       //if succesfull then you give status(200)
-      res.status(200).send({ status: "User Updated.", user: update });
+      res.status(200).send({ status: "User Updated." });
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).send({ status: "Error with update data." });
+      res.status(500).send({ status: "Error with update data.", error: err.message });
     });
 });
 
@@ -91,8 +91,8 @@ router.route("/get/:id").get(async (req, res) => {
   let userId = req.params.id;
   //this use the id, therefore we use findbyid, but we use userr email then we
   //should use the findOne(primaryKey)
-  const user = await Student.findById(userId).then(() => {
-    res.status(200).send({status: "user fetch", data: user})
+  const user = await Student.findById(userId).then((student) => {
+    res.status(200).send({status: "user fetch", data: student})
   }).catch((err) => {
     console.log(err.message);
     res.status(500).send({status: "Error with get user", error: err.message})
