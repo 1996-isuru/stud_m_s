@@ -25,4 +25,6 @@ const studentSchema = new Schema({
 //this doing by the fuction called model in mongoose
 const Student = mongoose.model("Student",studentSchema);
 
+//commit
+
 module.exports = Student;
