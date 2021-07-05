@@ -100,6 +100,6 @@ router.route("/get/:id").get(async (req, res) => {
 })
 
 //adding commit for checking 111
-//adding commit for checking branches
+//adding commit for checki branches
 
 module.exports = router;
