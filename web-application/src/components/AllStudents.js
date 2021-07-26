@@ -19,7 +19,6 @@ export default function AllStudensts() {
        getStudents();
     }, [])
 
-
   return (
     <div>
       <h1>kkkkk</h1>
