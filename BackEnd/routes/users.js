@@ -23,7 +23,6 @@ router.route("/signup", checkAuth).post((req, res) => {
             const user = new Users({
               userName: req.body.userName,
               email: req.body.email,
-              type: req.body.checked,
               password: hash,
             });
             user
