@@ -98,8 +98,4 @@ router.route("/get/:id").get(async (req, res) => {
     res.status(500).send({status: "Error with get user", error: err.message})
   })
 })
-
-//adding commit for checking 111
-//adding commit for branches in checking
-
 module.exports = router;
