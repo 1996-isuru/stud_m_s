@@ -20,6 +20,9 @@ export default function AddStudent() {
       .post("http://localhost:8070/student/add", newStudent)
       .then(() => {
         alert("Student Added.");
+        setName("");
+        setAge("");
+        setGender("");
       })
       .catch((err) => {
         alert(err);
