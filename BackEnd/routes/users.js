@@ -50,6 +50,7 @@ router.route("/login").post(async (req, res) => {
     .exec()
     .then((user) => {
       if (user.length < 1) {
+        console.log("wwwwwwwwwwww");
         return res.status(404).json({
           message: "Auth faild",
         });
@@ -75,7 +76,6 @@ router.route("/login").post(async (req, res) => {
             token: token,
             message: "Auth successful",
             userName: user[0].userName,
-            userType: user[0].type,
             userEmail: user[0].email,
           });
         }

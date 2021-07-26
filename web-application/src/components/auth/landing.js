@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function Landing() {
   return (
-    <div>
+    <div> 
       <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
                 <a class="navbar-brand" href="#page-top">Start Bootstrap</a>

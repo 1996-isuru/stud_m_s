@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./landing.css";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  let history = useHistory();
 
   function sendData(e) {
     //that is the event therefore should pass (e)
@@ -14,17 +15,17 @@ export default function Login() {
       email,
       password,
     };
-
-    console.log(newStudent);
     axios
       .post("http://localhost:8070/user/login", newStudent)
-      .then(() => {
-        alert("Student Added.");
-        setEmail("");
-        setPassword("");
+      .then((result) => {
+        if (result.data.message === "Auth successful") {
+          history.push("/home");
+        } else if(result.data.message === "Auth faild") {
+          alert("cannot login");
+        }
       })
       .catch((err) => {
-        alert(err);
+        alert("wrong details.");
       });
   }
 
@@ -79,50 +80,56 @@ export default function Login() {
             className="container"
             style={{ marginLeft: 30, marginTop: -50, width: 900 }}
           >
-          <h1 style={{textAlign: "left", marginBottom: 40, marginTop: 1}}>SignUp</h1>
-              <form onSubmit={sendData}>
-                <div className="form-group row" style={{ marginTop: 20 }}>
-                  <label htmlFor="email" className="text-start">
-                    email
-                  </label>
-                  <div className="col-sm-10">
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="email"
-                      placeholder="Enter Student email.."
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                      }}
-                    />
-                  </div>
+            <h1 style={{ textAlign: "left", marginBottom: 40, marginTop: 1 }}>
+              SignUp
+            </h1>
+            <form onSubmit={sendData}>
+              <div className="form-group row" style={{ marginTop: 20 }}>
+                <label htmlFor="email" className="text-start">
+                  email
+                </label>
+                <div className="col-sm-10">
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="email"
+                    placeholder="Enter Student email.."
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                  />
                 </div>
-                <div className="form-group row" style={{ marginTop: 20 }}>
-                  <label htmlFor="password" className="text-start">
-                    password
-                  </label>
-                  <div className="col-sm-10">
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="password"
-                      placeholder="Enter Student password.."
-                      onChange={(e) => {
-                        setPassword(e.target.value);
-                      }}
-                    />
-                  </div>
+              </div>
+              <div className="form-group row" style={{ marginTop: 20 }}>
+                <label htmlFor="password" className="text-start">
+                  password
+                </label>
+                <div className="col-sm-10">
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="password"
+                    placeholder="Enter Student password.."
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                  />
                 </div>
-                <div className="form-group row">
-                  <div className="text-start" style={{ marginTop: 20 }}>
-                    <button type="submit" className="btn btn-primary" style={{backgroundColor: "blue"}}>
-                      Sign in
-                    </button>
-                  </div>
+              </div>
+              <div className="form-group row">
+                <div className="text-start" style={{ marginTop: 20 }}>
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    style={{ backgroundColor: "blue" }}
+                  >
+                    Sign in
+                  </button>
                 </div>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
+        </div>
       </header>
       {/* <!-- Copyright Section--> */}
       <div class="copyright py-4 text-center text-white">
