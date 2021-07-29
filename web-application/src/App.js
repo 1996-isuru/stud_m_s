@@ -19,7 +19,7 @@ function App() {
         <Route path="/login" exact component={Login} />
         <Route path="/home" exact component={HomePage} />
         <Route path="/add" exact component={AddStudent} />
-        
+        <Route path="/allstudent" exact component={AllStudensts} />
         {/* <Route path="/" exact component={AllStudensts} /> */}
       </div>
     </Router>

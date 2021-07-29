@@ -71,6 +71,7 @@ export default function HomePage() {
               type="button"
               class="btn btn-secondary"
               style={{ marginTop: 20 }}
+              onClick={() => history.push('/allstudent')}
             >
               Show All Students
             </button>
