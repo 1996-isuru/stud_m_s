@@ -19,6 +19,8 @@ export default function Login() {
       .post("http://localhost:8070/user/login", newStudent)
       .then((result) => {
         if (result.data.message === "Auth successful") {
+          localStorage.setItem('UserEmail', email);
+          // localStorage.setItem('', email);
           history.push("/home");
         } else if(result.data.message === "Auth faild") {
           alert("cannot login");

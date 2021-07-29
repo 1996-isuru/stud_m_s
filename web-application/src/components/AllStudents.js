@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -19,11 +20,17 @@ const useStyles = makeStyles({
 export default function AllStudensts() {
   const [students, setStudents] = useState([]);
   const classes = useStyles();
+  const [useremail, setemail] = useState("");
 
   useEffect(() => {
     const getStudents = () => {
+      const email = localStorage.getItem("UserEmail");
       axios
-        .get("http://localhost:8070/student")
+        .get("http://localhost:8070/student", {
+          params: {
+            EMAIL: email,
+          },
+        })
         .then((res) => {
           setStudents(res.data);
           console.log(res.data);
@@ -48,7 +55,11 @@ export default function AllStudensts() {
 
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
-              {/* <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li> */}
+              <li class="nav-item mx-0 mx-lg-1">
+                <Link class="nav-link py-3 px-0 px-lg-3 rounded" to="/home">
+                  Home
+                </Link>
+              </li>
               {/* <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a></li> */}
               {/* <li class="nav-item mx-0 mx-lg-1">
                 <Link class="nav-link py-3 px-0 px-lg-3 rounded" to="/login">
@@ -88,9 +99,15 @@ export default function AllStudensts() {
               >
                 <TableHead>
                   <TableRow>
-                    <TableCell>Dessert (100g serving)</TableCell>
-                    <TableCell align="right">Calories</TableCell>
-                    <TableCell align="right">Fat&nbsp;(g)</TableCell>
+                    <TableCell style={{ fontWeight: "bold" }}>
+                      Students Name
+                    </TableCell>
+                    <TableCell align="right" style={{ fontWeight: "bold" }}>
+                      Age
+                    </TableCell>
+                    <TableCell align="right" style={{ fontWeight: "bold" }}>
+                      Gender{" "}
+                    </TableCell>
                     {/* <TableCell align="right">Carbs&nbsp;(g)</TableCell> */}
                   </TableRow>
                 </TableHead>

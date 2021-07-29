@@ -10,10 +10,13 @@ export default function AddStudent() {
   function sendData(e) {
     //that is the event therefore should pass (e)
     e.preventDefault();
+    const useremail = localStorage.getItem('UserEmail');
+    console.log(useremail);
     const newStudent = {
       name,
       age,
       gender,
+      useremail,
     };
 
     console.log(newStudent);
