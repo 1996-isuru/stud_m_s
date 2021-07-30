@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./landing.css";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function SignUp() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repassword, setrePassword] = useState("");
+  let history = useHistory();
 
   function sendData(e) {
     //that is the event therefore should pass (e)
@@ -24,10 +26,7 @@ export default function SignUp() {
       axios
         .post("http://localhost:8070/user/signup", newStudent)
         .then(() => {
-          alert("Student Added.");
-          setUserName("");
-          setEmail("");
-          setPassword("");
+          history.push("/login");
         })
         .catch((err) => {
           alert(err);
@@ -44,9 +43,7 @@ export default function SignUp() {
         id="mainNav"
       >
         <div class="container">
-          <a class="navbar-brand" href="#page-top">
-            Start Bootstrap
-          </a>
+          <h2 style={{ color: "white" }}>STUDENT MANAGMENT SYSTEM</h2>
           <button
             class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded"
             type="button"
@@ -62,9 +59,13 @@ export default function SignUp() {
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
               {/* <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li> */}
-                        {/* <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a></li> */}
-                        <li class="nav-item mx-0 mx-lg-1"><Link class="nav-link py-3 px-0 px-lg-3 rounded" to="/login">Login</Link></li>
-                        {/* <li class="nav-item mx-0 mx-lg-1"><Link class="nav-link py-3 px-0 px-lg-3 rounded" to="/signup">SignUp</Link></li> */}
+              {/* <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a></li> */}
+              <li class="nav-item mx-0 mx-lg-1">
+                <Link class="nav-link py-3 px-0 px-lg-3 rounded" to="/login">
+                  Login
+                </Link>
+              </li>
+              {/* <li class="nav-item mx-0 mx-lg-1"><Link class="nav-link py-3 px-0 px-lg-3 rounded" to="/signup">SignUp</Link></li> */}
             </ul>
           </div>
         </div>
@@ -84,11 +85,13 @@ export default function SignUp() {
             className="container"
             style={{ marginLeft: 30, marginTop: -50, width: 900 }}
           >
-          <h1 style={{textAlign: "left", marginBottom: 40, marginTop: 1}}>SignUp</h1>
+            <h1 style={{ textAlign: "left", marginBottom: 40, marginTop: 1 }}>
+              SignUp
+            </h1>
             <form onSubmit={sendData}>
               <div className="form-group row">
                 <label htmlFor="userName" className="text-start">
-                  Student Name
+                  User Name
                 </label>
                 <div className="col-sm-10">
                   <input
@@ -152,7 +155,11 @@ export default function SignUp() {
               </div>
               <div className="form-group row">
                 <div className="text-start" style={{ marginTop: 20 }}>
-                  <button type="submit" className="btn btn-primary" style={{backgroundColor: "blue"}}>
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    style={{ backgroundColor: "blue" }}
+                  >
                     Sign in
                   </button>
                 </div>

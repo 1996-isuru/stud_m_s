@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./landing.css";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -19,8 +20,10 @@ export default function Login() {
       .post("http://localhost:8070/user/login", newStudent)
       .then((result) => {
         if (result.data.message === "Auth successful") {
+          localStorage.setItem("UserEmail", email);
+          // localStorage.setItem('', email);
           history.push("/home");
-        } else if(result.data.message === "Auth faild") {
+        } else if (result.data.message === "Auth faild") {
           alert("cannot login");
         }
       })
@@ -36,9 +39,7 @@ export default function Login() {
         id="mainNav"
       >
         <div class="container">
-          <a class="navbar-brand" href="#page-top">
-            Start Bootstrap
-          </a>
+          <h2 style={{ color: "white" }}>STUDENT MANAGMENT SYSTEM</h2>
           <button
             class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded"
             type="button"
@@ -53,14 +54,11 @@ export default function Login() {
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
-              {/* <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li> */}
-              {/* <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a></li> */}
-              {/* <li class="nav-item mx-0 mx-lg-1">
-                <Link class="nav-link py-3 px-0 px-lg-3 rounded" to="/login">
-                  Login
+              <li class="nav-item mx-0 mx-lg-1">
+                <Link class="nav-link py-3 px-0 px-lg-3 rounded" to="/signup">
+                  SignUp
                 </Link>
-              </li> */}
-              {/* <li class="nav-item mx-0 mx-lg-1"><Link class="nav-link py-3 px-0 px-lg-3 rounded" to="/signup">SignUp</Link></li> */}
+              </li>
             </ul>
           </div>
         </div>
@@ -81,7 +79,7 @@ export default function Login() {
             style={{ marginLeft: 30, marginTop: -50, width: 900 }}
           >
             <h1 style={{ textAlign: "left", marginBottom: 40, marginTop: 1 }}>
-              SignUp
+              SignIn
             </h1>
             <form onSubmit={sendData}>
               <div className="form-group row" style={{ marginTop: 20 }}>

@@ -1,0 +1,262 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+
+import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import { Button } from "@material-ui/core";
+import Popup from "./popup";
+import { useHistory } from "react-router-dom";
+
+const useStyles = makeStyles({
+  table: {
+    minWidth: 650,
+  },
+});
+
+export default function ClassList() {
+    const history = useHistory();
+  const [classList, setClassList] = useState([]);
+  const classes = useStyles();
+  const [grade, setGrade] = useState("");
+  const [className, setClassName] = useState("");
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  function sendData(e) {
+    if (!grade || !className) {
+      alert("Enter all fields.");
+    } else {
+      //that is the event therefore should pass (e)
+      e.preventDefault();
+      const email = localStorage.getItem("UserEmail");
+      const newClass = {
+        className,
+        grade,
+        email,
+      };
+      console.log(newClass);
+      axios
+        .post("http://localhost:8070/class/addclass", newClass)
+        .then(() => {
+          alert("class add successfull");
+          setGrade("");
+          setClassName("");
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    }
+  }
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    const getStudents = () => {
+      const email = localStorage.getItem("UserEmail");
+      axios
+        .get("http://localhost:8070/class/showclasslist", {
+          params: {
+            EMAIL: email,
+          },
+        })
+        .then((res) => {
+          setClassList(res.data);
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
+    };
+    getStudents();
+  }, []);
+
+  return (
+    <div>
+      <nav
+        class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top"
+        id="mainNav"
+      >
+        <div class="container">
+          <h2 style={{ color: "white" }}>STUDENT MANAGMENT SYSTEM</h2>
+
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item mx-0 mx-lg-1">
+                <Link class="nav-link py-3 px-0 px-lg-3 rounded" to="/home">
+                  Home
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      /{/* <!-- Masthead--> */}
+      <header class="masthead bg-primary text-white text-center">
+        <div
+          class="container d-flex align-items-center flex-column"
+          style={{
+            width: 2000,
+            display: "flex",
+            height: 500,
+            marginTop: -92,
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              backgroundColor: "white",
+              width: 1000,
+              height: 600,
+            }}
+          >
+            <TableContainer component={Paper}>
+              <Table
+                className={classes.table}
+                size="small"
+                aria-label="a dense table"
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell style={{ fontWeight: "bold" }}>
+                      Class Name
+                    </TableCell>
+                    <TableCell style={{ fontWeight: "bold" }}>
+                      Class Grade
+                    </TableCell>
+                    <TableCell
+                      align="right"
+                      style={{ fontWeight: "bold", textAlign: "center" }}
+                    ></TableCell>
+                    <TableCell
+                      align="right"
+                      style={{ fontWeight: "bold", textAlign: "center" }}
+                    ></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {classList.map((row) => (
+                    <TableRow key={row.name}>
+                      <TableCell component="th" scope="row">
+                        {row.className}
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        {row.grade}
+                      </TableCell>
+                      <TableCell align="right">
+                        <Button
+                          type="button"
+                          class="btn btn-primary"
+                          style={{ width: 200, marginRight: 50 }}
+                          onClick={() => history.push("/allstudent")}
+                        >
+                          Show student List
+                        </Button>
+                      </TableCell>
+                      <TableCell align="right">
+                        <Button
+                          type="button"
+                          class="btn btn-primary"
+                          style={{ width: 100, marginRight: 50 }}
+                        >
+                          Remove
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              <div style={{ marginTop: 20 }}>
+                <Button
+                  type="button"
+                  class="btn btn-primary"
+                  style={{ width: 200, marginRight: 50 }}
+                  onClick={togglePopup}
+                >
+                  Add a New Class
+                </Button>
+                <div>
+                  {isOpen && (
+                    <Popup
+                      content={
+                        <>
+                          {/* <b>Add a new class</b> */}
+                          <form onSubmit={sendData}>
+                            <div className="form-group row">
+                              <label htmlFor="userName" className="text-start">
+                                Class Name
+                              </label>
+                              <div className="col-sm-10">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  id="userName"
+                                  placeholder="Enter Class Name.."
+                                  onChange={(e) => {
+                                    setClassName(e.target.value);
+                                  }}
+                                />
+                              </div>
+                            </div>
+                            <div
+                              className="form-group row"
+                              style={{ marginTop: 20 }}
+                            >
+                              <label htmlFor="email" className="text-start">
+                                Class Grade
+                              </label>
+                              <div className="col-sm-10">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  id="email"
+                                  placeholder="Enter Class Grade.."
+                                  onChange={(e) => {
+                                    setGrade(e.target.value);
+                                  }}
+                                />
+                              </div>
+                            </div>
+
+                            <div className="form-group row">
+                              <div
+                                className="text-start"
+                                style={{ marginTop: 20 }}
+                              >
+                                <button
+                                  type="submit"
+                                  class="btn btn-primary"
+                                  style={{ backgroundColor: "blue" }}
+                                >
+                                  + Add Class
+                                </button>
+                              </div>
+                            </div>
+                          </form>
+                        </>
+                      }
+                      handleClose={togglePopup}
+                    />
+                  )}
+                </div>
+              </div>
+            </TableContainer>
+          </div>
+        </div>
+      </header>
+      {/* <!-- Copyright Section--> */}
+      <div class="copyright py-4 text-center text-white">
+        <div class="container">
+          <small>Copyright &copy; Your Website 2021</small>
+        </div>
+      </div>
+    </div>
+  );
+}

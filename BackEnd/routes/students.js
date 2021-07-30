@@ -1,15 +1,17 @@
 const router = require("express").Router();
 let Student = require("../models/Student");
 
-router.route("/add").post((req, res) => {  
+router.route("/add").post((req, res) => {
   const name = req.body.name;
   const age = Number(req.body.age);
   const gender = req.body.gender;
+  const useremail = req.body.useremail;
 
   const newStudent = new Student({
     name,
     age,
     gender,
+    useremail,
   });
   newStudent
     .save()
@@ -23,7 +25,9 @@ router.route("/add").post((req, res) => {
 });
 
 router.route("/").get((req, res) => {
-  Student.find()
+  console.log(req.query.EMAIL);
+  console.log(req.query.EMAIL);
+  Student.find({ useremail: req.query.EMAIL })
     .then((students) => {
       res.json(students);
     })
@@ -46,7 +50,9 @@ router.route("/update/:id").put(async (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).send({ status: "Error with update data.", error: err.message });
+      res
+        .status(500)
+        .send({ status: "Error with update data.", error: err.message });
     });
 });
 
@@ -54,21 +60,29 @@ router.route("/delete/:id").delete(async (req, res) => {
   let userId = req.params.id;
 
   await Student.findByIdAndDelete(userId).then(() => {
-    res.status(200).send({ status: "User deleted." })
+    res
+      .status(200)
+      .send({ status: "User deleted." })
       .catch((err) => {
         console.log(err);
-        res.status(500).send({ status: "Error with update.", error: err.message });
+        res
+          .status(500)
+          .send({ status: "Error with update.", error: err.message });
       });
   });
 });
 
 router.route("/get/:id").get(async (req, res) => {
   let userId = req.params.id;
-  const user = await Student.findById(userId).then((student) => {
-    res.status(200).send({status: "user fetch", data: student})
-  }).catch((err) => {
-    console.log(err.message);
-    res.status(500).send({status: "Error with get user", error: err.message})
-  })
-})
+  const user = await Student.findById(userId)
+    .then((student) => {
+      res.status(200).send({ status: "user fetch", data: student });
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res
+        .status(500)
+        .send({ status: "Error with get user", error: err.message });
+    });
+});
 module.exports = router;
