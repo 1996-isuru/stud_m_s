@@ -20,9 +20,9 @@ const useStyles = makeStyles({
 });
 
 export default function ClassList() {
-  const [students, setStudents] = useState([]);
+//   const [students, setClassList] = useState([]);
+  const [classList, setClassList] = useState([]);
   const classes = useStyles();
-  //   const [email, setEmail] = useState("");
   const [grade, setGrade] = useState("");
   const [className, setClassName] = useState("");
 
@@ -62,13 +62,13 @@ export default function ClassList() {
     const getStudents = () => {
       const email = localStorage.getItem("UserEmail");
       axios
-        .get("http://localhost:8070/student", {
+        .get("http://localhost:8070/class/showclasslist", {
           params: {
             EMAIL: email,
           },
         })
         .then((res) => {
-          setStudents(res.data);
+          setClassList(res.data);
         })
         .catch((err) => {
           alert(err.message);
@@ -125,8 +125,15 @@ export default function ClassList() {
                 <TableHead>
                   <TableRow>
                     <TableCell style={{ fontWeight: "bold" }}>
-                      Students Name
+                      Class Name
                     </TableCell>
+                    <TableCell style={{ fontWeight: "bold" }}>
+                      Class Grade
+                    </TableCell>
+                    <TableCell
+                      align="right"
+                      style={{ fontWeight: "bold", textAlign: "center" }}
+                    ></TableCell>
                     <TableCell
                       align="right"
                       style={{ fontWeight: "bold", textAlign: "center" }}
@@ -134,19 +141,30 @@ export default function ClassList() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {students.map((row) => (
+                  {classList.map((row) => (
                     <TableRow key={row.name}>
                       <TableCell component="th" scope="row">
-                        {row.name}
+                        {row.className}
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        {row.grade}
                       </TableCell>
                       <TableCell align="right">
-                        {row.age}{" "}
                         <Button
                           type="button"
                           class="btn btn-primary"
                           style={{ width: 200, marginRight: 50 }}
                         >
                           Show student List
+                        </Button>
+                      </TableCell>
+                      <TableCell align="right">
+                        <Button
+                          type="button"
+                          class="btn btn-primary"
+                          style={{ width: 100, marginRight: 50 }}
+                        >
+                          Remove
                         </Button>
                       </TableCell>
                     </TableRow>

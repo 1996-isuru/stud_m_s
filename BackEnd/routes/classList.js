@@ -22,17 +22,15 @@ router.route("/addclass").post((req, res) => {
     });
 });
 
-// router.route("/showclasslist").get((req, res) => {
-//   console.log(req.query.EMAIL);
-//   console.log(req.query.EMAIL);
-//   Student.find({ useremail: req.query.EMAIL })
-//     .then((students) => {
-//       res.json(students);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// });
+router.route("/showclasslist").get((req, res) => {
+  Class.find({ useremail: req.query.EMAIL })
+    .then((classes) => {
+      res.json(classes);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 // router.route("/update/:id").put(async (req, res) => {
 //   let userId = req.params.id;
