@@ -4,7 +4,11 @@ const Schema = mongoose.Schema;
 
 //create the schema
 const classSchema = new Schema({
-    name : {
+    className : {
+        type : String,
+        required: true 
+    },
+    grade : {
         type : String,
         required: true 
     },

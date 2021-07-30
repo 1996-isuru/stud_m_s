@@ -20,7 +20,6 @@ const useStyles = makeStyles({
 export default function AllStudensts() {
   const [students, setStudents] = useState([]);
   const classes = useStyles();
-  const [useremail, setemail] = useState("");
 
   useEffect(() => {
     const getStudents = () => {

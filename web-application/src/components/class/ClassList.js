@@ -22,9 +22,37 @@ const useStyles = makeStyles({
 export default function ClassList() {
   const [students, setStudents] = useState([]);
   const classes = useStyles();
-  const [useremail, setemail] = useState("");
+  //   const [email, setEmail] = useState("");
+  const [grade, setGrade] = useState("");
+  const [className, setClassName] = useState("");
 
   const [isOpen, setIsOpen] = useState(false);
+
+  function sendData(e) {
+    if (!grade || !className) {
+      alert("Enter all fields.");
+    } else {
+      //that is the event therefore should pass (e)
+      e.preventDefault();
+      const email = localStorage.getItem("UserEmail");
+      const newClass = {
+        className,
+        grade,
+        email,
+      };
+      console.log(newClass);
+      axios
+        .post("http://localhost:8070/class/addclass", newClass)
+        .then(() => {
+          alert("class add successfull");
+          setGrade("");
+          setClassName("");
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    }
+  }
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -140,20 +168,20 @@ export default function ClassList() {
                       content={
                         <>
                           {/* <b>Add a new class</b> */}
-                          <form>
+                          <form onSubmit={sendData}>
                             <div className="form-group row">
                               <label htmlFor="userName" className="text-start">
-                                User Name
+                                Class Name
                               </label>
                               <div className="col-sm-10">
                                 <input
                                   type="text"
                                   className="form-control"
                                   id="userName"
-                                  placeholder="Enter Student Name.."
-                                  // onChange={(e) => {
-                                  //   setUserName(e.target.value);
-                                  // }}
+                                  placeholder="Enter Class Name.."
+                                  onChange={(e) => {
+                                    setClassName(e.target.value);
+                                  }}
                                 />
                               </div>
                             </div>
@@ -162,17 +190,17 @@ export default function ClassList() {
                               style={{ marginTop: 20 }}
                             >
                               <label htmlFor="email" className="text-start">
-                                email
+                                Class Grade
                               </label>
                               <div className="col-sm-10">
                                 <input
                                   type="text"
                                   className="form-control"
                                   id="email"
-                                  placeholder="Enter Student email.."
-                                  // onChange={(e) => {
-                                  //   setEmail(e.target.value);
-                                  // }}
+                                  placeholder="Enter Class Grade.."
+                                  onChange={(e) => {
+                                    setGrade(e.target.value);
+                                  }}
                                 />
                               </div>
                             </div>
@@ -182,18 +210,16 @@ export default function ClassList() {
                                 className="text-start"
                                 style={{ marginTop: 20 }}
                               >
-                                {/* <button
-                    type="submit"
-                    className="btn btn-primary"
-                    style={{ backgroundColor: "blue" }}
-                  >
-                    Sign in
-                  </button> */}
+                                <button
+                                  type="submit"
+                                  class="btn btn-primary"
+                                  style={{ backgroundColor: "blue" }}
+                                >
+                                  + Add Class
+                                </button>
                               </div>
                             </div>
                           </form>
-
-                          <button>Test button</button>
                         </>
                       }
                       handleClose={togglePopup}

@@ -1,17 +1,15 @@
 const router = require("express").Router();
-let Student = require("../models/ClassList");
+let Class = require("../models/ClassList");
 
 router.route("/addclass").post((req, res) => {
-  const name = req.body.name;
-  const age = Number(req.body.age);
-  const gender = req.body.gender;
-  const useremail = req.body.useremail;
+  const className = req.body.className;
+  const grade = req.body.grade;
+  const useremail = req.body.email;
 
-  const newStudent = new Student({
-    name,
-    age,
-    gender,
-    useremail,
+  const newStudent = new Class({
+    className,
+    grade,
+    useremail,  
   });
   newStudent
     .save()
@@ -24,17 +22,17 @@ router.route("/addclass").post((req, res) => {
     });
 });
 
-router.route("/showclasslist").get((req, res) => {
-  console.log(req.query.EMAIL);
-  console.log(req.query.EMAIL);
-  Student.find({ useremail: req.query.EMAIL })
-    .then((students) => {
-      res.json(students);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+// router.route("/showclasslist").get((req, res) => {
+//   console.log(req.query.EMAIL);
+//   console.log(req.query.EMAIL);
+//   Student.find({ useremail: req.query.EMAIL })
+//     .then((students) => {
+//       res.json(students);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
 
 // router.route("/update/:id").put(async (req, res) => {
 //   let userId = req.params.id;

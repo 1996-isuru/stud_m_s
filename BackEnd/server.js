@@ -30,6 +30,9 @@ app.use("/student", studentRouter);
 const usersRouter = require("./routes/users.js");
 app.use("/user", usersRouter);
 
+const classRouter = require("./routes/classList.js");
+app.use("/class", classRouter);
+
 app.listen(PORT, () => {
   console.log(`Server is up and running on port number: ${PORT}`);
 });
