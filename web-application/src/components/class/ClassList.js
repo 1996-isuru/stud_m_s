@@ -11,6 +11,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Button } from "@material-ui/core";
+import Popup from "./popup";
 
 const useStyles = makeStyles({
   table: {
@@ -22,6 +23,12 @@ export default function ClassList() {
   const [students, setStudents] = useState([]);
   const classes = useStyles();
   const [useremail, setemail] = useState("");
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     const getStudents = () => {
@@ -58,13 +65,6 @@ export default function ClassList() {
                   Home
                 </Link>
               </li>
-              {/* <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a></li> */}
-              {/* <li class="nav-item mx-0 mx-lg-1">
-                <Link class="nav-link py-3 px-0 px-lg-3 rounded" to="/login">
-                  Login
-                </Link>
-              </li> */}
-              {/* <li class="nav-item mx-0 mx-lg-1"><Link class="nav-link py-3 px-0 px-lg-3 rounded" to="/signup">SignUp</Link></li> */}
             </ul>
           </div>
         </div>
@@ -74,7 +74,6 @@ export default function ClassList() {
         <div
           class="container d-flex align-items-center flex-column"
           style={{
-            // backgroundColor: "white",
             width: 2000,
             display: "flex",
             height: 500,
@@ -103,11 +102,7 @@ export default function ClassList() {
                     <TableCell
                       align="right"
                       style={{ fontWeight: "bold", textAlign: "center" }}
-                    >
-                      
-                    </TableCell>
-
-                    {/* <TableCell align="right">Carbs&nbsp;(g)</TableCell> */}
+                    ></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -117,20 +112,97 @@ export default function ClassList() {
                         {row.name}
                       </TableCell>
                       <TableCell align="right">
-                        {row.age} <Button type="button" class="btn btn-primary" style={{ width: 200, marginRight: 50}}>Show student List</Button>
+                        {row.age}{" "}
+                        <Button
+                          type="button"
+                          class="btn btn-primary"
+                          style={{ width: 200, marginRight: 50 }}
+                        >
+                          Show student List
+                        </Button>
                       </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
-              <div style={{marginTop: 20}}>
-            <Button type="button" class="btn btn-primary" style={{ width: 200, marginRight: 50}}>Add a New Class</Button>  
-            </div>
-            </TableContainer>
+              <div style={{ marginTop: 20 }}>
+                <Button
+                  type="button"
+                  class="btn btn-primary"
+                  style={{ width: 200, marginRight: 50 }}
+                  onClick={togglePopup}
+                >
+                  Add a New Class
+                </Button>
+                <div>
+                  {isOpen && (
+                    <Popup
+                      content={
+                        <>
+                          {/* <b>Add a new class</b> */}
+                          <form>
+                            <div className="form-group row">
+                              <label htmlFor="userName" className="text-start">
+                                User Name
+                              </label>
+                              <div className="col-sm-10">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  id="userName"
+                                  placeholder="Enter Student Name.."
+                                  // onChange={(e) => {
+                                  //   setUserName(e.target.value);
+                                  // }}
+                                />
+                              </div>
+                            </div>
+                            <div
+                              className="form-group row"
+                              style={{ marginTop: 20 }}
+                            >
+                              <label htmlFor="email" className="text-start">
+                                email
+                              </label>
+                              <div className="col-sm-10">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  id="email"
+                                  placeholder="Enter Student email.."
+                                  // onChange={(e) => {
+                                  //   setEmail(e.target.value);
+                                  // }}
+                                />
+                              </div>
+                            </div>
 
-            
+                            <div className="form-group row">
+                              <div
+                                className="text-start"
+                                style={{ marginTop: 20 }}
+                              >
+                                {/* <button
+                    type="submit"
+                    className="btn btn-primary"
+                    style={{ backgroundColor: "blue" }}
+                  >
+                    Sign in
+                  </button> */}
+                              </div>
+                            </div>
+                          </form>
+
+                          <button>Test button</button>
+                        </>
+                      }
+                      handleClose={togglePopup}
+                    />
+                  )}
+                </div>
+              </div>
+            </TableContainer>
           </div>
-          
         </div>
       </header>
       {/* <!-- Copyright Section--> */}
