@@ -26,6 +26,7 @@ router.route("/add").post((req, res) => {
 
 router.route("/").get((req, res) => {
   console.log(req.query.EMAIL);
+  console.log(req.query.EMAIL);
   Student.find({ useremail: req.query.EMAIL })
     .then((students) => {
       res.json(students);

@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./landing.css";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function SignUp() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repassword, setrePassword] = useState("");
+  let history = useHistory();
 
   function sendData(e) {
     //that is the event therefore should pass (e)
@@ -24,10 +26,7 @@ export default function SignUp() {
       axios
         .post("http://localhost:8070/user/signup", newStudent)
         .then(() => {
-          alert("Student Added.");
-          setUserName("");
-          setEmail("");
-          setPassword("");
+          history.push("/login");
         })
         .catch((err) => {
           alert(err);
@@ -92,7 +91,7 @@ export default function SignUp() {
             <form onSubmit={sendData}>
               <div className="form-group row">
                 <label htmlFor="userName" className="text-start">
-                  Student Name
+                  User Name
                 </label>
                 <div className="col-sm-10">
                   <input

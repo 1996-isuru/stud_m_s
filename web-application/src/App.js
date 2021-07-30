@@ -7,6 +7,7 @@ import Landing from "./components/auth/landing";
 import SignUp from "./components/auth/SIgnUp";
 import Login from "./components/auth/Login";
 import HomePage from "./components/HomePage";
+import ClassList from "./components/class/ClassList";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/home" exact component={HomePage} />
         <Route path="/add" exact component={AddStudent} />
         <Route path="/allstudent" exact component={AllStudensts} />
+        <Route path="/classlist" exact component={ClassList} />
         {/* <Route path="/" exact component={AllStudensts} /> */}
       </div>
     </Router>

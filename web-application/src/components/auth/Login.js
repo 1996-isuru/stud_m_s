@@ -54,12 +54,12 @@ export default function Login() {
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
-            <li class="nav-item mx-0 mx-lg-1">
+              <li class="nav-item mx-0 mx-lg-1">
                 <Link class="nav-link py-3 px-0 px-lg-3 rounded" to="/signup">
                   SignUp
                 </Link>
               </li>
-             </ul>
+            </ul>
           </div>
         </div>
       </nav>

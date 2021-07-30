@@ -1,8 +1,8 @@
 import React from "react";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 export default function HomePage() {
-    const history = useHistory();
+  const history = useHistory();
   return (
     <div>
       <nav
@@ -10,8 +10,8 @@ export default function HomePage() {
         id="mainNav"
       >
         <div class="container">
-          <h2 style={{color: "white"}}>STUDENT MANAGMENT SYSTEM</h2>
-         
+          <h2 style={{ color: "white" }}>STUDENT MANAGMENT SYSTEM</h2>
+
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
               {/* <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li> */}
@@ -52,7 +52,7 @@ export default function HomePage() {
               type="button"
               class="btn btn-secondary"
               style={{ marginTop: 20 }}
-              onClick={() => history.push('/add')}
+              onClick={() => history.push("/add")}
             >
               Add Students
             </button>
@@ -71,7 +71,7 @@ export default function HomePage() {
               type="button"
               class="btn btn-secondary"
               style={{ marginTop: 20 }}
-              onClick={() => history.push('/allstudent')}
+              onClick={() => history.push("/allstudent")}
             >
               Show All Students
             </button>
@@ -85,6 +85,7 @@ export default function HomePage() {
               type="button"
               class="btn btn-secondary"
               style={{ marginTop: 20 }}
+              onClick={() => history.push("/classlist")}
             >
               Add Students
             </button>
