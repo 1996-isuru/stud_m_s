@@ -9,7 +9,7 @@ router.route("/addclass").post((req, res) => {
   const newStudent = new Class({
     className,
     grade,
-    useremail,  
+    useremail,
   });
   newStudent
     .save()

@@ -80,14 +80,14 @@ export default function HomePage() {
             class="align-self-start"
             style={{ backgroundColor: "white", width: 300, height: 130 }}
           >
-            <h3 style={{ color: "black" }}>Add Students</h3>
+            <h3 style={{ color: "black" }}>Class Details</h3>
             <button
               type="button"
               class="btn btn-secondary"
               style={{ marginTop: 20 }}
               onClick={() => history.push("/classlist")}
             >
-              Add Students
+              Class Details
             </button>
           </div>
         </div>

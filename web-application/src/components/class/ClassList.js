@@ -12,6 +12,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Button } from "@material-ui/core";
 import Popup from "./popup";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   table: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles({
 });
 
 export default function ClassList() {
-//   const [students, setClassList] = useState([]);
+    const history = useHistory();
   const [classList, setClassList] = useState([]);
   const classes = useStyles();
   const [grade, setGrade] = useState("");
@@ -154,6 +155,7 @@ export default function ClassList() {
                           type="button"
                           class="btn btn-primary"
                           style={{ width: 200, marginRight: 50 }}
+                          onClick={() => history.push("/allstudent")}
                         >
                           Show student List
                         </Button>
