@@ -142,4 +142,4 @@ export default function AllStudensts() {
 
 //checking
 
-//checking
+//checkinggit config --global user.name "FIRST_NAME LAST_NAME"
